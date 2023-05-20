@@ -12,13 +12,22 @@ import PhotoDetailsModal from './routes/PhotoDetailsModal';
 const App = () => {
 
   const [likes, setLikes] = useState(0);
+  const [likedPhotoArray, setLikedPhotoArray] = useState([]);
   const [displayModal, setDisplayModal] = useState(false);
   const [modalData, setModalData] = useState({});
 
-  const onClickLikes = function(status) {
-    return status ? setLikes(likes + 1) : setLikes(likes - 1);
+  const onClickLikes = function(status, photoId) {
+
+    if (status) {
+      setLikes(likes + 1);
+      setLikedPhotoArray([...likedPhotoArray, photoId]);
+    } else {
+      setLikes(likes - 1);
+      setLikedPhotoArray(likedPhotoArray.filter(id => id !== photoId));
+    }
   };
 
+  //onPhotoCLick
   const onClickModal = function(photoData) {
     setDisplayModal(true);
     //setting details incoming from PhotoListItem to modalData
@@ -32,14 +41,16 @@ const App = () => {
         photoData={photoData}
         onClickModal={onClickModal}
         likes={likes}
-        onClickLikes={onClickLikes} />
+        onClickLikes={onClickLikes}
+        likedPhotoArray={likedPhotoArray} />
       {displayModal &&
         (<PhotoDetailsModal
           photoData={photoData}
           onClose={() => setDisplayModal(false)}
           modalData={modalData}
-          likes={likes}
-          onClickLikes={onClickLikes} />
+          onClickLikes={onClickLikes}
+          likedPhotoArray={likedPhotoArray}
+        />
         )}
     </div >
   );

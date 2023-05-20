@@ -1,14 +1,15 @@
 import React from 'react';
 
-
 import PhotoFavButton from '../components/PhotoFavButton';
 import '../styles/PhotoDetailsModal.scss';
 import PhotoList from '../components/PhotoList';
 
 const PhotoDetailsModal = (props) => {
   //console.log(props.modalData);
-  console.log("you clicked on:", props.modalData.id);
+  //console.log("you clicked on:", props.modalData.id);
   //console.log("your cliked photo liked status:", props.modalData.likes);
+
+  const liked = props.likedPhotoArray.includes(props.modalData.id);
 
   return (
     <div className='photo-details-modal'>
@@ -27,11 +28,10 @@ const PhotoDetailsModal = (props) => {
         </svg>
       </button>
       <div className='photo-details-modal--images' key={props.modalData.id}>
-
+        <PhotoFavButton photoId={props.modalData.id} onClickLikes={props.onClickLikes} liked={liked} />
         <img className='photo-details-modal--image' src={props.modalData.urls.raw} />
-
         <header className='photo-details-modal--header'>Similar Photos</header>
-        <PhotoList photoData={props.photoData} likes={props.likes} onClickLikes={props.onClickLikes} />
+        <PhotoList photoData={props.photoData} onClickLikes={props.onClickLikes} likedPhotoArray={props.likedPhotoArray} />
       </div>
 
     </div>

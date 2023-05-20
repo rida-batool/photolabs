@@ -9,7 +9,10 @@ const HomeRoute = (props) => {
   return (
     <div className='home-route'>
       <TopNavigationBar topicData={props.topicData} likes={props.likes} />
-      <PhotoList photoData={props.photoData} likes={props.likes} onClickLikes={props.onClickLikes} onClickModal={props.onClickModal} />
+      <PhotoList photoData={props.photoData}
+        onClickLikes={props.onClickLikes}
+        onClickModal={props.onClickModal}
+        likedPhotoArray={props.likedPhotoArray} />
     </div>
   );
 

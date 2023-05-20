@@ -6,8 +6,8 @@ import '../styles/PhotoList.scss';
 const PhotoList = (props) => {
 
   const photo = props.photoData.map((photo) => {
-    //console.log(photo);
-    return <PhotoListItem key={photo.id} {...photo} likes={props.likes} onClickLikes={props.onClickLikes} onClickModal={props.onClickModal} />;
+    const liked = props.likedPhotoArray.includes(photo.id);
+    return <PhotoListItem key={photo.id} {...photo} liked={liked} onClickLikes={props.onClickLikes} onClickModal={props.onClickModal} />;
   });
 
   return (

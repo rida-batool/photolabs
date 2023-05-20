@@ -5,10 +5,10 @@ import PhotoFavButton from './PhotoFavButton';
 
 
 const PhotoListItem = (props) => {
-  //console.log("i am photoListItem:", props.user.username);
+  //console.log("i am photoListItem:", props.id);
   return (
-    <div className='photo-list--item'>
-      <PhotoFavButton likes={props.likes} onClickLikes={props.onClickLikes} />
+    <div className='photo-list--item' >
+      <PhotoFavButton photoId={props.id} onClickLikes={props.onClickLikes} liked={props.liked} />
       <img className='photo-list--image' src={props.urls.raw} onClick={() => props.onClickModal(props)} />
     </div>
   );
