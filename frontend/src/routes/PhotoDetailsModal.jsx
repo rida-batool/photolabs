@@ -5,10 +5,7 @@ import '../styles/PhotoDetailsModal.scss';
 import PhotoList from '../components/PhotoList';
 
 const PhotoDetailsModal = (props) => {
-  //console.log(props.modalData);
-  //console.log("you clicked on:", props.modalData.id);
-  //console.log("your cliked photo liked status:", props.modalData.likes);
-
+  //liked variable to pass in likes information from homeroute
   const liked = props.likedPhotoArray.includes(props.modalData.id);
 
   return (
@@ -27,6 +24,7 @@ const PhotoDetailsModal = (props) => {
           </defs>
         </svg>
       </button>
+
       <div className='photo-details-modal--images' key={props.modalData.id}>
         <PhotoFavButton photoId={props.modalData.id} onClickLikes={props.onClickLikes} liked={liked} />
         <img className='photo-details-modal--image' src={props.modalData.urls.regular} />
@@ -37,6 +35,7 @@ const PhotoDetailsModal = (props) => {
         <PhotoList photoData={props.photoData}
           onClickLikes={props.onClickLikes}
           likedPhotoArray={props.likedPhotoArray}
+          onClickModal={props.onClickModal}
         />
       </div>
 

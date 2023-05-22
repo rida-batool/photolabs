@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React from 'react';
 
 import TopNavigationBar from '../components/TopNavigationBar';
 import PhotoList from '../components/PhotoList';
@@ -21,7 +21,5 @@ const HomeRoute = (props) => {
   );
 
 };
-
-
 
 export default HomeRoute;

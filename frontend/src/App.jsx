@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import useApplicationData from './hooks/useApplicationData';
 
-import topicData from './mocks/topics.json';
-import photoData from './mocks/photos.json';
 
 import './App.scss';
 import HomeRoute from './routes/HomeRoute';
 import PhotoDetailsModal from './routes/PhotoDetailsModal';
 
-
-// Note: Rendering a single component to build components in isolation
+//state logic from useApplicationData
 const App = () => {
   const { likedPhotoArray,
     displayModal,
@@ -37,10 +34,38 @@ const App = () => {
   const onLoadTopic = async (id) => {
     const response = await fetch(`/api/topics/photos/${id}`);
     const data = await response.json();
-    //console.log("photos topics", data);
     setPhotos(data);
   };
 
+
+  //rendering Homeroute and Modal route
+  return (
+    < div className="App" >
+      <HomeRoute
+        topicData={topicData}
+        photoData={photoData}
+        onClickModal={onClickModal}
+        onClickLikes={onClickLikes}
+        likedPhotoArray={likedPhotoArray}
+        onLoadTopic={onLoadTopic} />
+      {displayModal &&
+        (<PhotoDetailsModal
+          photoData={photoData}
+          onClose={() => setDisplayModal(false)}
+          modalData={modalData}
+          onClickModal={onClickModal}
+          onClickLikes={onClickLikes}
+          likedPhotoArray={likedPhotoArray}
+        />
+        )}
+    </div >
+  );
+};
+
+export default App;
+
+
+// I am keeping this to reference later
   // const [likedPhotoArray, setLikedPhotoArray] = useState([]);
   // const [displayModal, setDisplayModal] = useState(false);
   // const [modalData, setModalData] = useState({});
@@ -63,29 +88,3 @@ const App = () => {
   //   setModalData(selectedPhotoData);
   // };
 
-
-
-  return (
-    < div className="App" >
-      <HomeRoute
-        topicData={topicData}
-        photoData={photoData}
-        onClickModal={onClickModal}
-        onClickLikes={onClickLikes}
-        likedPhotoArray={likedPhotoArray}
-        onLoadTopic={onLoadTopic} />
-      {displayModal &&
-        (<PhotoDetailsModal
-          photoData={photoData}
-          onClose={() => setDisplayModal(false)}
-          modalData={modalData}
-          onClickLikes={onClickLikes}
-          likedPhotoArray={likedPhotoArray}
-        />
-        )}
-    </div >
-  );
-};
-
-
-export default App;

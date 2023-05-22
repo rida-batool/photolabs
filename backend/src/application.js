@@ -36,13 +36,14 @@ module.exports = function application(
   app.use(cors());
   app.use(helmet());
   app.use(bodyparser.json());
+  const photoPath = path.join(__dirname, 'public');
+  app.use(express.static(photoPath));
 
   // TODO: update to topics and photos
   app.use("/api", photos(db));
   app.use("/api", topics(db));
 
-  const photoPath = path.join(__dirname, 'public');
-  app.use(express.static(photoPath));
+
 
   if (ENV === "development" || ENV === "test") {
     Promise.all([

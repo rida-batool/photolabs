@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 
 const useApplicationData = () => {
   const [likedPhotoArray, setLikedPhotoArray] = useState([]);
   const [displayModal, setDisplayModal] = useState(false);
   const [modalData, setModalData] = useState({});
+
+  //const [state, dispatch] = useReducer(reducer, {likedPhotoArray:[]} )
 
   //updateFavPhotoIds
   const onClickLikes = function(status, photoId) {
@@ -16,14 +18,10 @@ const useApplicationData = () => {
 
   //onPhotoCLick
   const onClickModal = function(photo) {
-    //console.log(photoData);
     if (displayModal) return;
-    //const selectedPhotoData = photoData.find((photo) => photo.id === photoId.id);
     setModalData(photo);
     setDisplayModal(!displayModal);
-    //setting details incoming from PhotoListItem to modalData
   };
-
 
 
   return {
