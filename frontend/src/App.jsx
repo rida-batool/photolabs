@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import useApplicationData from './hooks/useApplicationData';
 
 import topicData from './mocks/topics.json';
 import photoData from './mocks/photos.json';
@@ -10,29 +11,59 @@ import PhotoDetailsModal from './routes/PhotoDetailsModal';
 
 // Note: Rendering a single component to build components in isolation
 const App = () => {
+  const { likedPhotoArray,
+    displayModal,
+    modalData,
+    onClickLikes,
+    onClickModal,
+    setDisplayModal } = useApplicationData();
 
-  const [likes, setLikes] = useState(0);
-  const [likedPhotoArray, setLikedPhotoArray] = useState([]);
-  const [displayModal, setDisplayModal] = useState(false);
-  const [modalData, setModalData] = useState({});
+  const [photoData, setPhotos] = useState([]);
+  const [topicData, setTopics] = useState([]);
 
-  const onClickLikes = function(status, photoId) {
+  useEffect(() => {
+    const fetchData = async () => {
+      const photos = fetch('/api/photos');
+      const topics = fetch('/api/topics');
+      const response = await Promise.all([topics, photos]);
+      const topicsResponse = await response[0].json();
+      const photosResponse = await response[1].json();
+      setTopics(topicsResponse);
+      setPhotos(photosResponse);
+    };
+    fetchData();
+  }, []);
 
-    if (status) {
-      setLikes(likes + 1);
-      setLikedPhotoArray([...likedPhotoArray, photoId]);
-    } else {
-      setLikes(likes - 1);
-      setLikedPhotoArray(likedPhotoArray.filter(id => id !== photoId));
-    }
+  const onLoadTopic = async (id) => {
+    const response = await fetch(`/api/topics/photos/${id}`);
+    const data = await response.json();
+    //console.log("photos topics", data);
+    setPhotos(data);
   };
 
-  //onPhotoCLick
-  const onClickModal = function(photoData) {
-    setDisplayModal(true);
-    //setting details incoming from PhotoListItem to modalData
-    setModalData(photoData);
-  };
+  // const [likedPhotoArray, setLikedPhotoArray] = useState([]);
+  // const [displayModal, setDisplayModal] = useState(false);
+  // const [modalData, setModalData] = useState({});
+
+  // //updateFavPhotoIds
+  // const onClickLikes = function(status, photoId) {
+  //   if (status) {
+  //     setLikedPhotoArray([...likedPhotoArray, photoId]);
+  //   } else {
+  //     setLikedPhotoArray(likedPhotoArray.filter(id => id !== photoId));
+  //   }
+  // };
+
+  // //onPhotoCLick
+  // const onClickModal = function(photo) {
+  //   if (displayModal) return;
+  //   const selectedPhotoData = photoData.find((photo) => photo.id === photo.id);
+  //   setDisplayModal(!displayModal);
+  //   //setting details incoming from PhotoListItem to modalData
+  //   setModalData(selectedPhotoData);
+  // };
+
+
 
   return (
     < div className="App" >
@@ -40,9 +71,9 @@ const App = () => {
         topicData={topicData}
         photoData={photoData}
         onClickModal={onClickModal}
-        likes={likes}
         onClickLikes={onClickLikes}
-        likedPhotoArray={likedPhotoArray} />
+        likedPhotoArray={likedPhotoArray}
+        onLoadTopic={onLoadTopic} />
       {displayModal &&
         (<PhotoDetailsModal
           photoData={photoData}

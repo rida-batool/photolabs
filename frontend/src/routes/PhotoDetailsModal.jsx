@@ -29,9 +29,15 @@ const PhotoDetailsModal = (props) => {
       </button>
       <div className='photo-details-modal--images' key={props.modalData.id}>
         <PhotoFavButton photoId={props.modalData.id} onClickLikes={props.onClickLikes} liked={liked} />
-        <img className='photo-details-modal--image' src={props.modalData.urls.raw} />
+        <img className='photo-details-modal--image' src={props.modalData.urls.regular} />
+        <h2>{props.modalData.user.name}</h2>
+        <hr className='photo-details-modal-line' />
+
         <header className='photo-details-modal--header'>Similar Photos</header>
-        <PhotoList photoData={props.photoData} onClickLikes={props.onClickLikes} likedPhotoArray={props.likedPhotoArray} />
+        <PhotoList photoData={props.photoData}
+          onClickLikes={props.onClickLikes}
+          likedPhotoArray={props.likedPhotoArray}
+        />
       </div>
 
     </div>

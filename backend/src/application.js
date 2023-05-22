@@ -1,5 +1,8 @@
+//require('dotenv').config();
 const fs = require("fs");
 const path = require("path");
+const db = require("./db");
+
 
 const express = require("express");
 const bodyparser = require("body-parser");
@@ -7,6 +10,7 @@ const helmet = require("helmet");
 const cors = require("cors");
 
 const app = express();
+
 
 const photos = require("./routes/photos");
 const topics = require("./routes/topics");
@@ -34,8 +38,11 @@ module.exports = function application(
   app.use(bodyparser.json());
 
   // TODO: update to topics and photos
-  app.use("/api", photos());
-  app.use("/api", topics());
+  app.use("/api", photos(db));
+  app.use("/api", topics(db));
+
+  const photoPath = path.join(__dirname, 'public');
+  app.use(express.static(photoPath));
 
   if (ENV === "development" || ENV === "test") {
     Promise.all([

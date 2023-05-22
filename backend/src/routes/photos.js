@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const photosMock = require("../mocks/photos.json")
+const photosMock = require("../mocks/photos.json");
 
 module.exports = db => {
   router.get("/photos", (request, response) => {

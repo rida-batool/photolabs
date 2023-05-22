@@ -1,12 +1,27 @@
 .photo-details-modal {
   background-color: white;
-  box-shadow: 0 0 0 50vmax rgba(0,0,0,.5);
+  box-shadow: 0 0 0 50vmax rgba(9, 9, 9, 0.5);
+
   position: absolute;
   top: 55%;
   left: 50%;
   transform: translate(-50%, -40%);
   height: 80%;
-  width: 55%;
+  width: 80%;
+  overflow-y: scroll;
+  border-radius: 12px;
+}
+
+.photo-details-modal-fullscreen {
+  background-color: white;
+  box-shadow: 0 0 0 50vmax rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  width: 100vw;
   overflow-y: scroll;
   border-radius: 12px;
 }
@@ -55,4 +70,9 @@
   margin-top: 24px;
   margin-bottom: 24px;
   width: 90%;
+}
+
+.photo-details-modal-line {
+  margin-right: 25px;
+  color: lightgray;
 }

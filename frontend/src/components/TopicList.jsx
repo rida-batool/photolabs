@@ -7,7 +7,7 @@ const TopicList = (props) => {
 
   const topic = props.topicData.map((topic) => {
     //console.log(topic);
-    return <TopicListItem key={topic.id} {...topic} />;
+    return <TopicListItem key={topic.id} {...topic} onLoadTopic={props.onLoadTopic} />;
   });
 
   return (

@@ -8,11 +8,15 @@ const HomeRoute = (props) => {
 
   return (
     <div className='home-route'>
-      <TopNavigationBar topicData={props.topicData} likes={props.likes} />
+      <TopNavigationBar topicData={props.topicData}
+        likedPhotoArray={props.likedPhotoArray}
+        onLoadTopic={props.onLoadTopic} />
+
       <PhotoList photoData={props.photoData}
         onClickLikes={props.onClickLikes}
         onClickModal={props.onClickModal}
-        likedPhotoArray={props.likedPhotoArray} />
+        likedPhotoArray={props.likedPhotoArray}
+        onLoadTopic={props.onLoadTopic} />
     </div>
   );
 

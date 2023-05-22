@@ -3,14 +3,13 @@ import FavIcon from './FavIcon';
 
 import '../styles/FavBadge.scss';
 
-export const FavBadge = ({ isFavPhotoExist, likes }) => {
+export const FavBadge = ({ isFavPhotoExist, likedPhotoArray }) => {
 
-  if (likes > 0) {
+  if (likedPhotoArray.length > 0) {
     isFavPhotoExist = true;
   } else {
     isFavPhotoExist = false;
   }
-
 
   return (
     <div className='fav-badge'>

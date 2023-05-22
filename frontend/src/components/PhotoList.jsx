@@ -7,7 +7,10 @@ const PhotoList = (props) => {
 
   const photo = props.photoData.map((photo) => {
     const liked = props.likedPhotoArray.includes(photo.id);
-    return <PhotoListItem key={photo.id} {...photo} liked={liked} onClickLikes={props.onClickLikes} onClickModal={props.onClickModal} />;
+    return <PhotoListItem key={photo.id} {...photo} photo={photo} liked={liked}
+      onClickLikes={props.onClickLikes}
+      onClickModal={props.onClickModal}
+      onLoadTopic={props.onLoadTopic} />;
   });
 
   return (
