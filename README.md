@@ -31,5 +31,5 @@ cd backend
 npm start
 ```
 
-![Demo](https://user-images.githubusercontent.com/82332264/240115728-1684c4e6-f282-4f92-a4de-f14ae7913421.mp4)
+
 
