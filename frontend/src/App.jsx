@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import useApplicationData from './hooks/useApplicationData';
 
 
@@ -8,34 +8,15 @@ import PhotoDetailsModal from './routes/PhotoDetailsModal';
 
 //state logic from useApplicationData
 const App = () => {
-  const { likedPhotoArray,
+  const { photoData,
+    topicData,
+    likedPhotoArray,
     displayModal,
     modalData,
     onClickLikes,
     onClickModal,
-    setDisplayModal } = useApplicationData();
-
-  const [photoData, setPhotos] = useState([]);
-  const [topicData, setTopics] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const photos = fetch('/api/photos');
-      const topics = fetch('/api/topics');
-      const response = await Promise.all([topics, photos]);
-      const topicsResponse = await response[0].json();
-      const photosResponse = await response[1].json();
-      setTopics(topicsResponse);
-      setPhotos(photosResponse);
-    };
-    fetchData();
-  }, []);
-
-  const onLoadTopic = async (id) => {
-    const response = await fetch(`/api/topics/photos/${id}`);
-    const data = await response.json();
-    setPhotos(data);
-  };
+    setDisplayModal,
+    onLoadTopic } = useApplicationData();
 
 
   //rendering Homeroute and Modal route
