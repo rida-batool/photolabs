@@ -4,14 +4,15 @@ import TopicListItem from './TopicListItem';
 import '../styles/TopicList.scss';
 
 const TopicList = (props) => {
+  const { onLoadTopic, topicData } = props;
 
-  const topic = props.topicData.map((topic) => {
-    return <TopicListItem key={topic.id} {...topic} onLoadTopic={props.onLoadTopic} />;
+  const topics = topicData.map((topic) => {
+    return <TopicListItem key={topic.id} {...topic} onLoadTopic={onLoadTopic} />;
   });
 
   return (
     <div className="top-nav-bar--topic-list">
-      {topic}
+      {topics}
     </div>
   );
 

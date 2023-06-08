@@ -6,11 +6,12 @@ import TopicList from './TopicList';
 import '../styles/TopNavigationBar.scss';
 
 const TopNavigation = (props) => {
+  const { topicData, onLoadTopic, likedPhotoArray } = props;
   return (
     <div className="top-nav-bar">
       <h1 className="top-nav-bar--logo">PhotoLabs</h1>
-      <TopicList topicData={props.topicData} onLoadTopic={props.onLoadTopic} />
-      <FavBadge likedPhotoArray={props.likedPhotoArray} />
+      <TopicList topicData={topicData} onLoadTopic={onLoadTopic} />
+      <FavBadge likedPhotoArray={likedPhotoArray} />
     </div>
   );
 };

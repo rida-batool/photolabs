@@ -5,13 +5,16 @@ import '../styles/PhotoDetailsModal.scss';
 import PhotoList from '../components/PhotoList';
 
 const PhotoDetailsModal = (props) => {
+  //console.log("i am modaldata", props.modalData);
+  const { likedPhotoArray, modalData, onClose, onClickLikes, photoData, onClickModal } = props;
+
   //liked variable to pass in likes information from homeroute
-  const liked = props.likedPhotoArray.includes(props.modalData.id);
+  const liked = likedPhotoArray.includes(modalData.id);
 
   return (
     <div className='photo-details-modal'>
 
-      <button className='photo-details-modal--close-button' onClick={props.onClose}>
+      <button className='photo-details-modal--close-button' onClick={onClose}>
         <svg width="24" height="24" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clipPath="url(#clip0_428_287)">
             <path d="M14.0625 3.9375L3.9375 14.0625" stroke="black" strokeLinecap="round" strokeLinejoin="round" />
@@ -25,17 +28,17 @@ const PhotoDetailsModal = (props) => {
         </svg>
       </button>
 
-      <div className='photo-details-modal--images' key={props.modalData.id}>
-        <PhotoFavButton photoId={props.modalData.id} onClickLikes={props.onClickLikes} liked={liked} />
-        <img className='photo-details-modal--image' src={props.modalData.urls.regular} />
-        <h2>{props.modalData.user.name}</h2>
+      <div className='photo-details-modal--images' key={modalData.id}>
+        <PhotoFavButton photoId={modalData.id} onClickLikes={onClickLikes} liked={liked} />
+        <img className='photo-details-modal--image' src={modalData.urls.regular} />
+        <h2>{modalData.user.name}</h2>
         <hr className='photo-details-modal-line' />
 
         <header className='photo-details-modal--header'>Similar Photos</header>
-        <PhotoList photoData={props.photoData}
-          onClickLikes={props.onClickLikes}
-          likedPhotoArray={props.likedPhotoArray}
-          onClickModal={props.onClickModal}
+        <PhotoList photoData={photoData}
+          onClickLikes={onClickLikes}
+          likedPhotoArray={likedPhotoArray}
+          onClickModal={onClickModal}
         />
       </div>
 

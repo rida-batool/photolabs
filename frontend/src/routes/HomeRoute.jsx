@@ -6,20 +6,21 @@ import '../styles/HomeRoute.scss';
 
 const HomeRoute = (props) => {
 
+  const { topicData, likedPhotoArray, onLoadTopic, photoData, onClickLikes, onClickModal } = props;
+
   return (
     <div className='home-route'>
-      <TopNavigationBar topicData={props.topicData}
-        likedPhotoArray={props.likedPhotoArray}
-        onLoadTopic={props.onLoadTopic} />
+      <TopNavigationBar topicData={topicData}
+        likedPhotoArray={likedPhotoArray}
+        onLoadTopic={onLoadTopic} />
 
-      <PhotoList photoData={props.photoData}
-        onClickLikes={props.onClickLikes}
-        onClickModal={props.onClickModal}
-        likedPhotoArray={props.likedPhotoArray}
-        onLoadTopic={props.onLoadTopic} />
+      <PhotoList photoData={photoData}
+        onClickLikes={onClickLikes}
+        onClickModal={onClickModal}
+        likedPhotoArray={likedPhotoArray}
+        onLoadTopic={onLoadTopic} />
     </div>
   );
-
 };
 
 export default HomeRoute;
