@@ -1,47 +1,73 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
+
+const initialState = {
+  likedPhotoArray: [],
+  displayModal: false,
+  modalData: {},
+  photoData: [],
+  topicData: [],
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'SET_LIKED_PHOTO_ARRAY':
+      return { ...state, likedPhotoArray: action.payload };
+    case 'SET_DISPLAY_MODAL':
+      return { ...state, displayModal: action.payload };
+    case 'SET_MODAL_DATA':
+      return { ...state, modalData: action.payload };
+    case 'SET_PHOTO_DATA':
+      return { ...state, photoData: action.payload };
+    case 'SET_TOPIC_DATA':
+      return { ...state, topicData: action.payload };
+    default:
+      throw new Error(`Unhandled action type: ${action.type}`);
+  }
+};
 
 const useApplicationData = () => {
-  const [likedPhotoArray, setLikedPhotoArray] = useState([]);
-  const [displayModal, setDisplayModal] = useState(false);
-  const [modalData, setModalData] = useState({});
-  const [photoData, setPhotos] = useState([]);
-  const [topicData, setTopics] = useState([]);
 
-  //const [state, dispatch] = useReducer(reducer, {likedPhotoArray:[]} )
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { likedPhotoArray, displayModal, modalData, photoData, topicData } = state;
 
-  //updateFavPhotoIds
-  const onClickLikes = function(status, photoId) {
+  //updateFavPhotoIds array
+  const onClickLikes = (status, photoId) => {
     if (status) {
-      setLikedPhotoArray([...likedPhotoArray, photoId]);
+      dispatch({ type: 'SET_LIKED_PHOTO_ARRAY', payload: [...likedPhotoArray, photoId] });
     } else {
-      setLikedPhotoArray(likedPhotoArray.filter(id => id !== photoId));
+      dispatch({
+        type: 'SET_LIKED_PHOTO_ARRAY',
+        payload: likedPhotoArray.filter(id => id !== photoId),
+      });
     }
   };
 
+
   //onPhotoCLick
-  const onClickModal = function(photo) {
+  const onClickModal = photo => {
     if (displayModal) return;
-    setModalData(photo);
-    setDisplayModal(!displayModal);
+    dispatch({ type: 'SET_MODAL_DATA', payload: photo });
+    dispatch({ type: 'SET_DISPLAY_MODAL', payload: !displayModal });
+  };
+
+
+  const onClose = () => {
+    dispatch({ type: 'SET_DISPLAY_MODAL', payload: false });
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      const photos = fetch('/api/photos');
-      const topics = fetch('/api/topics');
-      const response = await Promise.all([topics, photos]);
-      const topicsResponse = await response[0].json();
-      const photosResponse = await response[1].json();
-      setTopics(topicsResponse);
-      setPhotos(photosResponse);
+      const photosResponse = await fetch('/api/photos').then(response => response.json());
+      const topicsResponse = await fetch('/api/topics').then(response => response.json());
+      dispatch({ type: 'SET_PHOTO_DATA', payload: photosResponse });
+      dispatch({ type: 'SET_TOPIC_DATA', payload: topicsResponse });
     };
     fetchData();
   }, []);
 
-  const onLoadTopic = async (id) => {
-    const response = await fetch(`/api/topics/photos/${id}`);
-    const data = await response.json();
-    setPhotos(data);
+  const onLoadTopic = async id => {
+    const data = await fetch(`/api/topics/photos/${id}`).then(response => response.json());
+    dispatch({ type: 'SET_PHOTO_DATA', payload: data });
   };
 
 
@@ -53,7 +79,7 @@ const useApplicationData = () => {
     modalData,
     onClickLikes,
     onClickModal,
-    setDisplayModal,
+    onClose,
     onLoadTopic
   };
 };

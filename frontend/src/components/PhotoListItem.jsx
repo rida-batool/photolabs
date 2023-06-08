@@ -5,7 +5,7 @@ import PhotoFavButton from './PhotoFavButton';
 
 //component to render single photo item
 const PhotoListItem = (props) => {
-  //console.log("i am photo", props.photo);
+
   const { photo, onClickLikes, liked, onClickModal } = props;
 
   return (

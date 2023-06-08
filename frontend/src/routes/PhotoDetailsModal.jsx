@@ -5,7 +5,7 @@ import '../styles/PhotoDetailsModal.scss';
 import PhotoList from '../components/PhotoList';
 
 const PhotoDetailsModal = (props) => {
-  //console.log("i am modaldata", props.modalData);
+
   const { likedPhotoArray, modalData, onClose, onClickLikes, photoData, onClickModal } = props;
 
   //liked variable to pass in likes information from homeroute
